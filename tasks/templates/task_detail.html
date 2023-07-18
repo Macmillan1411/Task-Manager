@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ task.title }}</h1>
+  <p>{{ task.description }}</p>
+  <p><strong>Priority:</strong> {{ task.priority }}</p>
+  <p><strong>Status:</strong> {{ task.status }}</p>
+  <p><strong>Due Date:</strong> {{ task.due_date | default_if_none:"Not set" }}</p>
+  <p><strong>Created:</strong> {{ task.created_at }}</p>
+  <p><strong>Updated:</strong> {{ task.updated_at }}</p>
+  <p><a href="{% url 'tasks:task_edit' task.pk %}">Edit task</a></p>
+  <p><a href="{% url 'tasks:task_history' task.pk %}">View task history</a></p>
+{% endblock %}

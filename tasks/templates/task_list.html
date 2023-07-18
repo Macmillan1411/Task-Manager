@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Task List</h1>
+  <p><a href="{% url 'tasks:task_new' %}">Create a new task</a></p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Priority</th>
+        <th>Due Date</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for task in tasks %}
+        <tr>
+          <td>{{ task.title }}</td>
+          <td>{{ task.description }}</td>
+          <td>{{ task.priority }}</td>
+          <td>{{ task.due_date | default_if_none:"Not set" }}</td>
+          <td>{{ task.status }}</td>
+          <td>
+            <a href="{% url 'tasks:task_detail' task.pk %}">View</a>
+            |
+            <a href="{% url 'tasks:task_edit' task.pk %}">Edit</a>
+            |
+            <a href="{% url 'tasks:task_delete' task.pk %}">Delete</a>
+            |
+            <a href="{% url 'tasks:task_history' task.pk %}">History</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="6">No tasks found.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

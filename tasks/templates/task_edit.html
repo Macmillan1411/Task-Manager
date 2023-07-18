@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{% if task.pk %}Edit Task{% else %}New Task{% endif %}</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{% if task.pk %}Save{% else %}Create{% endif %} task</button>
+  </form>
+{% endblock %}
