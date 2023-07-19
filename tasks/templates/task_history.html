@@ -5,25 +5,17 @@
   <table class="table">
     <thead>
       <tr>
-        <th>Date</th>
-        <th>Updated By</th>
         <th>Title</th>
         <th>Description</th>
-        <th>Priority</th>
-        <th>Status</th>
-        <th>Due Date</th>
+        <th>Time</th>
       </tr>
     </thead>
     <tbody>
-      {% for history in task_history %}
+      {% for history in history %}
         <tr>
-          <td>{{ history.updated_at }}</td>
-          <td>{{ history.user.username }}</td>
-          <td>{{ history.title }}</td>
-          <td>{{ history.description }}</td>
-          <td>{{ history.priority }}</td>
-          <td>{{ history.status }}</td>
-          <td>{{ history.due_date | default_if_none:"Not set" }}</td>
+          <td>{{ history.task.title }}</td>
+          <td>{{ history.action }}</td>
+          <td>{{ history.timestamp }}</td>
         </tr>
       {% empty %}
         <tr>

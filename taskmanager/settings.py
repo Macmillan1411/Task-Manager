@@ -29,7 +29,6 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -40,14 +39,10 @@ INSTALLED_APPS = [
 
     #myapps
     'users',
-    'tasks',
+    'tasks.apps.TasksConfig',
     'crispy_forms',
-    "crispy_bulma",
+    
 ]
-
-CRISPY_ALLOWED_TEMPLATE_PACKS = ("bulma",)
-
-CRISPY_TEMPLATE_PACK = "bulma"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

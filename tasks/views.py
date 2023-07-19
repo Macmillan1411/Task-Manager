@@ -24,7 +24,7 @@ def task_new(request):
             task = form.save(commit=False)
             task.owner = request.user
             task.save()
-            TaskHistory.create(task)
+            #TaskHistory.create(task,action='created')
             return redirect('tasks:task_detail', pk=task.pk)
     else:
         form = TaskForm()
@@ -39,7 +39,7 @@ def task_edit(request, pk):
             task = form.save(commit=False)
             task.updated_by = request.user
             task.save()
-            TaskHistory.create(task)
+            #TaskHistory.create(task,action='updated')
             return redirect('tasks:task_detail', pk=task.pk)
     else:
         form =TaskForm(instance=task)
@@ -56,5 +56,5 @@ def task_delete(request, pk):
 @login_required
 def task_history(request, pk):
     task = get_object_or_404(Task, pk=pk, owner=request.user)
-    history = TaskHistory.objects.filter(task=task).order_by('-created_at')
-    return render(request, 'task_history.html', {'task': task, 'history': history})
+    task_history = TaskHistory.objects.filter(task=task).order_by('-timestamp')
+    return render(request, 'task_history.html', {'task': task, 'history': task_history})
