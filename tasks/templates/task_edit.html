@@ -1,10 +1,42 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-  <h1>{% if task.pk %}Edit Task{% else %}New Task{% endif %}</h1>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">{% if task.pk %}Save{% else %}Create{% endif %} task</button>
-  </form>
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <h1 class="title">Edit Task</h1>
+          <form method="post" class="box">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="field">
+              <div class="control">
+                <button type="submit" class="button is-primary">
+                  <i class="fas fa-save"></i> Save Task
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Add Font Awesome and Flatpickr libraries -->
+  <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/flatpickr.min.css' %}">
+  <script src="{% static 'js/flatpickr.min.js' %}"></script>
+
+  <!-- Initialize Flatpickr -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      flatpickr(".datetime-input", {
+        dateFormat: "Y-m-d",
+        altInput: true,
+        altFormat: "F j, Y",
+        minDate: "today",
+      });
+    });
+  </script>
 {% endblock %}

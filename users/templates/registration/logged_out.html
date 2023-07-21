@@ -1,6 +1,23 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h2>Logged out</h2>
-  <p>You have been logged out. <a href="{% url 'users:login' %}">Login again</a>.</p>
+  <section class="section">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-half">
+          <div class="card">
+            <div class="card-content has-text-centered">
+              <h2 class="title">Logged out</h2>
+              <p>You have been logged out.</p>
+              <a href="{% url 'users:login' %}" class="button is-primary">Login again</a>
+              <form method="post" action="{% url 'users:logout' %}">
+                {% csrf_token %}
+                <button type="submit" class="button is-danger">Logout</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 {% endblock %}

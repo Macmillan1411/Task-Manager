@@ -1,42 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{% block title %}Task Manager{% endblock %}</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <!-- Your head content here -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
 </head>
 <body>
-  <nav class='navbar is-dark'>
-    <div class='navbar-brand'>
-      <a href="{% url 'tasks:task_list' %}" class="navbar-item">Task Captain</a>
-      <span class="navbar-burger burger" data-target='navMenu'>
-        <span></span>
-        <span></span>
-        <span></span>
-      </span>
+  <!-- Navbar -->
+  <nav class="navbar is-light has-shadow" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="{% url 'tasks:task_list' %}">
+        Task Manager
+      </a>
+      <!-- Add your logo or brand here if desired -->
     </div>
-    <div class="idnavMenu" class='navbar-menu'>
-      <div class="navbar-end">
-        <div class="navbar-item block">
-
-          {% if user.is_authenticated %}
-            <a class='button is-small' href="{% url 'tasks:task_list' %}">Tasks</a>
-            <a class='button is-small ' href="{% url 'users:logout' %}">Logout</a>
-          {% else %}
-            <a class='button is-small' href="{% url 'users:login' %}">Login</a>
-            <a class='button is-small ' href="{% url 'users:register' %}">Register</a>
-          {% endif %}
-        </div>
+    <!-- Add your navigation links here -->
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="{% url 'tasks:task_list' %}">
+          All Tasks
+        </a>
+        <!-- Add more navigation links if needed -->
+        <a class="navbar-item" href="#about">
+          About
+        </a>
       </div>
     </div>
-  </nav>
-  <section class='section'>
-    <div class="container">
-      {% block content %}
-      {% endblock %}
+    <div class="navbar-end">
+      {% if user.is_authenticated %}
+        <div class="navbar-item">
+          <span>{{ user.username }}</span>
+        </div>
+        <div class="navbar-item">
+          <a href="{% url 'users:logout' %}" class="button is-light">
+            Logout
+          </a>
+        </div>
+      {% else %}
+        <div class="navbar-item">
+          <a href="{% url 'users:login' %}" class="button is-light">
+            Login
+          </a>
+        </div>
+        <div class="navbar-item">
+          <a href="{% url 'users:register' %}" class="button is-primary">
+            Register
+          </a>
+        </div>
+      {% endif %}
     </div>
-  </section>
+  </nav>
 
+  <!-- Content -->
+  {% block content %}
+  {% endblock %}
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>
+        Летаюшие програмисты &copy; {% now "Y" %}. All rights reserved.
+      </p>
+    </div>
+  </footer>
 </body>
 </html>

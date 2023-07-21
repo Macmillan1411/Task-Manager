@@ -1,42 +1,153 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <h1>Task List</h1>
-  <p><a href="{% url 'tasks:task_new' %}">Create a new task</a></p>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Title</th>
-        <th>Description</th>
-        <th>Priority</th>
-        <th>Due Date</th>
-        <th>Status</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for task in tasks %}
-        <tr>
-          <td>{{ task.title }}</td>
-          <td>{{ task.description }}</td>
-          <td>{{ task.priority }}</td>
-          <td>{{ task.due_date | default_if_none:"Not set" }}</td>
-          <td>{{ task.status }}</td>
-          <td>
-            <a href="{% url 'tasks:task_detail' task.pk %}">View</a>
-            |
-            <a href="{% url 'tasks:task_edit' task.pk %}">Edit</a>
-            |
-            <a href="{% url 'tasks:task_delete' task.pk %}">Delete</a>
-            |
-            <a href="{% url 'tasks:task_history' task.pk %}">History</a>
-          </td>
-        </tr>
-      {% empty %}
-        <tr>
-          <td colspan="6">No tasks found.</td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+  <section class="section">
+    <div class="container">
+      <h1 class="title">Task List</h1>
+      <p><a href="{% url 'tasks:task_new' %}" class="button is-info is-light">Create a new task</a></p>
+
+      <div class="tabs is-centered">
+        <ul>
+          <li class="is-active" data-tab="all-tasks">
+            <a>All Tasks</a>
+          </li>
+          <li data-tab="active-tasks">
+            <a>Active Tasks</a>
+          </li>
+          <li data-tab="completed-tasks">
+            <a>Completed Tasks</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="tabs-content">
+        <div class="tab-pane is-active" id="all-tasks">
+          <div class="columns is-multiline">
+            {% for task in tasks %}
+              <div class="column is-one-third">
+                <a href="{% url 'tasks:task_detail' task.pk %}">
+                  <div class="card">
+                    <div class="card-content">
+                      <h2 class="subtitle">{{ task.title }}</h2>
+                      <p class="content">
+                        {% if task.due_date %}
+                          <strong>Due Date:</strong> {{ task.due_date | date:"M d, Y" }}
+                        {% else %}
+                          <strong>Due Date:</strong> Not set
+                        {% endif %}
+                      </p>
+                      <div class="tags">
+                        {% if task.priority == 'High' %}
+                          <span class="tag is-danger">High Priority</span>
+                        {% elif task.priority == 'Low' %}
+                          <span class="tag is-success">Low Priority</span>
+                        {% else %}
+                          <span class="tag is-warning">Medium Priority</span>
+                        {% endif %}
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            {% empty %}
+              <div class="column">
+                <p>No tasks found.</p>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="tab-pane" id="active-tasks">
+          <div class="columns is-multiline">
+            {% for task in tasks %}
+              {% if task.status == 'Active' %}
+                <div class="column is-one-third">
+                  <a href="{% url 'tasks:task_detail' task.pk %}">
+                    <div class="card">
+                      <div class="card-content">
+                        <h2 class="subtitle">{{ task.title }}</h2>
+                        <p class="content">
+                          {% if task.due_date %}
+                            <strong>Due Date:</strong> {{ task.due_date | date:"M d, Y" }}
+                          {% else %}
+                            <strong>Due Date:</strong> Not set
+                          {% endif %}
+                        </p>
+                        <div class="tags">
+                          {% if task.priority == 'High' %}
+                            <span class="tag is-danger">High Priority</span>
+                          {% elif task.priority == 'Low' %}
+                            <span class="tag is-success">Low Priority</span>
+                          {% else %}
+                            <span class="tag is-warning">Medium Priority</span>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              {% endif %}
+            {% empty %}
+              <div class="column">
+                <p>No active tasks found.</p>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="tab-pane" id="completed-tasks">
+          <div class="columns is-multiline">
+            {% for task in tasks %}
+              {% if task.status == 'Completed' %}
+                <div class="column is-one-third">
+                  <a href="{% url 'tasks:task_detail' task.pk %}">
+                    <div class="card">
+                      <div class="card-content">
+                        <h2 class="subtitle">{{ task.title }}</h2>
+                        <p class="content">
+                          {% if task.due_date %}
+                            <strong>Due Date:</strong> {{ task.due_date | date:"M d, Y" }}
+                          {% else %}
+                            <strong>Due Date:</strong> Not set
+                          {% endif %}
+                        </p>
+                        <div class="tags">
+                          {% if task.priority == 'High' %}
+                            <span class="tag is-danger">High Priority</span>
+                          {% elif task.priority == 'Low' %}
+                            <span class="tag is-success">Low Priority</span>
+                          {% else %}
+                            <span class="tag is-warning">Medium Priority</span>
+                          {% endif %}
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              {% endif %}
+            {% empty %}
+              <div class="column">
+                <p>No completed tasks found.</p>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const tabs = document.querySelectorAll(".tabs li");
+      const tabContents = document.querySelectorAll(".tabs-content .tab-pane");
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const targetTab = tab.getAttribute("data-tab");
+          tabs.forEach((t) => t.classList.remove("is-active"));
+          tabContents.forEach((tc) => tc.classList.add("is-hidden"));
+          tab.classList.add("is-active");
+          document.getElementById(targetTab).classList.remove("is-hidden");
+        });
+      });
+    });
+  </script>
 {% endblock %}
