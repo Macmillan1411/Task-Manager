@@ -135,7 +135,9 @@
   </section>
 
   <script>
-    document.addEventListener("DOMContentLoaded", function () {
+
+    (function(){
+      document.addEventListener("DOMContentLoaded", function () {
       const tabs = document.querySelectorAll(".tabs li");
       const tabContents = document.querySelectorAll(".tabs-content .tab-pane");
 
@@ -149,5 +151,7 @@
         });
       });
     });
+    })()
+    
   </script>
 {% endblock %}

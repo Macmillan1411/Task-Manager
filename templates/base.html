@@ -1,8 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+  {% load static %}
 <head>
-  <!-- Your head content here -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+   <!-- Our project just needs Font Awesome Free's Solid and Brand files -->
+   <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+   <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+   <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+  <!-- Load Chart.js v3.5.1 from a CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@3.5.1/dist/chart.js"></script>
+  
+  <!-- Add Font Awesome and Flatpickr libraries -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+  <script src="{% static 'fontawesomefree/js/fontawesome.js' %}"></script>
+  <script src="{% static 'fontawesomefree/js/solid.js' %}"></script>
+  <script src="{% static 'fontawesomefree/js/brands.js' %}"></script>
+
+
+
 </head>
 <body>
   <!-- Navbar -->
@@ -20,8 +37,8 @@
           All Tasks
         </a>
         <!-- Add more navigation links if needed -->
-        <a class="navbar-item" href="#about">
-          About
+        <a class="navbar-item" href="{% url 'tasks:task_stats' %}">
+          Statistics
         </a>
       </div>
     </div>
@@ -42,9 +59,6 @@
           </a>
         </div>
         <div class="navbar-item">
-          <a href="{% url 'users:register' %}" class="button is-primary">
-            Register
-          </a>
         </div>
       {% endif %}
     </div>

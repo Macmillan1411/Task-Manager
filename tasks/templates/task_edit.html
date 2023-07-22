@@ -6,37 +6,78 @@
     <div class="container">
       <div class="columns is-centered">
         <div class="column is-half">
-          <h1 class="title">Edit Task</h1>
-          <form method="post" class="box">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <div class="field">
-              <div class="control">
-                <button type="submit" class="button is-primary">
-                  <i class="fas fa-save"></i> Save Task
-                </button>
+          <div class="box">
+            {% if task.id %}
+              <h1 class="title">Edit Task</h1>
+            {% else %}
+              <h1 class="title">Create New Task</h1>
+            {% endif %}
+            <form method="post">
+              {% csrf_token %}
+              <div class="field">
+                <label class="label">Title</label>
+                <div class="control has-icons-left">
+                  {{ form.title }}
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-tasks"></i>
+                  </span>
+                </div>
               </div>
-            </div>
-          </form>
+              <div class="field">
+                <label class="label">Description</label>
+                <div class="control">
+                  {{ form.description }}
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Due Date</label>
+                <div class="control has-icons-left">
+                  {{ form.due_date }}
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-calendar-alt"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Priority</label>
+                <div class="control">
+                  {{ form.priority }}
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Status</label>
+                <div class="control">
+                  {{ form.status }}
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  <button type="submit" class="button is-info">
+                    <span class="icon">
+                      <i class="fas fa-save"></i>
+                    </span>
+                    <span>{% if task.id %}Save Task{% else %}Create Task{% endif %}</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>
   </section>
+</div>
 
-  <!-- Add Font Awesome and Flatpickr libraries -->
-  <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
-  <link rel="stylesheet" href="{% static 'css/flatpickr.min.css' %}">
-  <script src="{% static 'js/flatpickr.min.js' %}"></script>
-
-  <!-- Initialize Flatpickr -->
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      flatpickr(".datetime-input", {
-        dateFormat: "Y-m-d",
-        altInput: true,
-        altFormat: "F j, Y",
-        minDate: "today",
-      });
+<!-- Initialize Flatpickr -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    flatpickr(".datetime-input", {
+      dateFormat: "Y-m-d",
+      altInput: true,
+      altFormat: "F j, Y",
+      minDate: "today",
     });
-  </script>
+  });
+</script>
 {% endblock %}
+

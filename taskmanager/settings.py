@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     #myapps
     'users',
     'tasks.apps.TasksConfig',
-    'crispy_forms',
+    #'crispy_forms', #nolonger in use
+    'fontawesomefree',
     
 ]
 

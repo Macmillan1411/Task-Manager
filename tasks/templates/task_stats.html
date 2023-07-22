@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="section">
+  <div class="container">
+    <h1 class="title">Task Statistics</h1>
+
+    <div>
+       <!-- Chart: Active and Completed Tasks -->
+    <div class="columns">
+      <div class="column is-one-half is-offset-one-after">
+        <canvas id="activeCompletedChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Chart: Completed Percentage -->
+    <div class="columns">
+      <div class="column">
+        <canvas id="completedPercentageChart"></canvas>
+      </div>
+    </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // Chart.js code to generate the charts
+  document.addEventListener('DOMContentLoaded', function () {
+    const activeTasksCount = {{ active_tasks.count|escapejs }};
+    const completedTasksCount = {{ completed_tasks.count|escapejs }};
+    const totalTasksCount = {{ total_tasks|escapejs }};
+    const completedPercentage = {{ completed_percentage|escapejs }};
+    const remainingPercentage = {{ remaining_percentage|escapejs }};
+
+    // Active and Completed Tasks Chart
+    new Chart(document.getElementById('activeCompletedChart'), {
+      type: 'pie',
+      data: {
+        labels: ['Active', 'Completed'],
+        datasets: [{
+          data: [activeTasksCount, completedTasksCount],
+          backgroundColor: ['#FF6384', '#36A2EB'],
+        }],
+      },
+    });
+
+    // Completed Percentage Chart
+    new Chart(document.getElementById('completedPercentageChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Completed', 'Remaining'],
+        datasets: [{
+          data: [completedPercentage, remainingPercentage],
+          backgroundColor: ['#FFCE56', '#E2E2E2'],
+        }],
+      },
+    });
+  });
+</script>
+{% endblock %}
+
