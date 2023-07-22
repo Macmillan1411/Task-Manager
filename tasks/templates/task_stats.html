@@ -2,29 +2,29 @@
 
 {% block content %}
 <section class="section">
-  <div class="container">
-    <h1 class="title">Task Statistics</h1>
-
-    <div>
+  <h1 class="title">Task Statistics</h1>
+  <div class="container level">
+    
        <!-- Chart: Active and Completed Tasks -->
-    <div class="columns">
-      <div class="column is-one-half is-offset-one-after">
+    <div class="columns level-item">
+      <div class="column is-6">
         <canvas id="activeCompletedChart"></canvas>
       </div>
     </div>
 
     <!-- Chart: Completed Percentage -->
-    <div class="columns">
-      <div class="column">
+    <div class="columns level-item">
+      <div class="column is-6 ">
         <canvas id="completedPercentageChart"></canvas>
       </div>
     </div>
-    </div>
+    
   </div>
 </section>
 
 <script>
   // Chart.js code to generate the charts
+  
   document.addEventListener('DOMContentLoaded', function () {
     const activeTasksCount = {{ active_tasks.count|escapejs }};
     const completedTasksCount = {{ completed_tasks.count|escapejs }};
@@ -48,7 +48,7 @@
     new Chart(document.getElementById('completedPercentageChart'), {
       type: 'doughnut',
       data: {
-        labels: ['Completed', 'Remaining'],
+        labels: ['Completed %', 'Remaining %'],
         datasets: [{
           data: [completedPercentage, remainingPercentage],
           backgroundColor: ['#FFCE56', '#E2E2E2'],

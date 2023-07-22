@@ -14,22 +14,21 @@ class Task(models.Model):
         ('Medium', 'Medium'),
         ('High', 'High'),
     )
-    priority = models.CharField(max_length=10, choices=PRIORITY_CHOICES, default='Low')
+    priority = models.CharField(choices=PRIORITY_CHOICES, default='Low',max_length=20)
     STATUS_CHOICES = (
         ('Active', 'Active'),
         ('Completed', 'Completed'),
     )
-    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Active')
+    status = models.CharField(choices=STATUS_CHOICES, default='Active',max_length=20)
 
 class TaskHistory(models.Model):
     ACTION_CHOICES = [
         ('created','Created'),
         ('updated','Updated'),
 
-       
     ]
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
-    action = models.CharField(max_length=10, choices = ACTION_CHOICES)
+    action = models.CharField(choices = ACTION_CHOICES,max_length=20)
     timestamp = models.DateTimeField(default=timezone.now) 
 
     def __str__(self):

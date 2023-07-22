@@ -4,7 +4,13 @@
   <section class="section">
     <div class="container">
       <h1 class="title">Task List</h1>
-      <p><a href="{% url 'tasks:task_new' %}" class="button is-info is-light">Create a new task</a></p>
+      <p><a href="{% url 'tasks:task_new' %}" class="button is-info is-light">
+        <span class="icon">
+          <i class="fas fa-plus"></i>
+        </span>
+        <span>Create a new task</span>
+        </a>
+      </p>
 
       <div class="tabs is-centered">
         <ul>

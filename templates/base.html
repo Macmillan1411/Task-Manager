@@ -32,6 +32,7 @@
     </div>
     <!-- Add your navigation links here -->
     <div class="navbar-menu">
+      {% if user.is_authenticated %}
       <div class="navbar-start">
         <a class="navbar-item" href="{% url 'tasks:task_list' %}">
           All Tasks
@@ -41,6 +42,7 @@
           Statistics
         </a>
       </div>
+      {% endif %}
     </div>
     <div class="navbar-end">
       {% if user.is_authenticated %}
@@ -72,7 +74,7 @@
   <footer class="footer">
     <div class="content has-text-centered">
       <p>
-        Летаюшие програмисты &copy; {% now "Y" %}. All rights reserved.
+        летающие программисты &copy; {% now "Y" %}. All rights reserved.
       </p>
     </div>
   </footer>

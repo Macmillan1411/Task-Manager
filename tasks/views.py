@@ -69,8 +69,7 @@ def task_stats(request):
     completed_percentage = (completed_tasks.count() / total_tasks) * 100
     remaining_percentage = 100 - completed_percentage
 
-    print('Active Tasks Count:', active_tasks.count()) 
-    print('Completed Tasks Count:', completed_tasks.count()) 
+
     return render(request, 'task_stats.html', {
         'active_tasks': active_tasks,
         'completed_tasks': completed_tasks,
