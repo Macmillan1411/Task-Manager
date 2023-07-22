@@ -8,8 +8,14 @@ from .forms import TaskForm
 # Create your views here.
 @login_required
 def task_list(request):
-    tasks = Task.objects.filter(owner=request.user).order_by('-created_at').distinct()
-    return render(request, 'task_list.html', {'tasks': tasks})
+    tasks = Task.objects.filter(owner=request.user).order_by('-created_at')
+    active_tasks = tasks.filter(status = 'Active')
+    completed_tasks = tasks.filter(status = 'Completed')
+    return render(request, 'task_list.html', {
+        'tasks': tasks,
+        'active_tasks' : active_tasks,
+        'completed_tasks' : completed_tasks
+        })
 
 @login_required
 def task_detail(request, pk):

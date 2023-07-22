@@ -64,8 +64,7 @@
         </div>
         <div class="tab-pane" id="active-tasks">
           <div class="columns is-multiline">
-            {% for task in tasks %}
-              {% if task.status == 'Active' %}
+            {% for task in active_tasks %}
                 <div class="column is-one-third">
                   <a href="{% url 'tasks:task_detail' task.pk %}">
                     <div class="card">
@@ -91,7 +90,6 @@
                     </div>
                   </a>
                 </div>
-              {% endif %}
             {% empty %}
               <div class="column">
                 <p>No active tasks found.</p>
@@ -101,8 +99,7 @@
         </div>
         <div class="tab-pane" id="completed-tasks">
           <div class="columns is-multiline">
-            {% for task in tasks %}
-              {% if task.status == 'Completed' %}
+            {% for task in completed_tasks %}
                 <div class="column is-one-third">
                   <a href="{% url 'tasks:task_detail' task.pk %}">
                     <div class="card">
@@ -128,7 +125,6 @@
                     </div>
                   </a>
                 </div>
-              {% endif %}
             {% empty %}
               <div class="column">
                 <p>No completed tasks found.</p>
